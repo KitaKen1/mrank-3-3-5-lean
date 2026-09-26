@@ -1,0 +1,11 @@
+name = "tensor_rank_335_fc"
+version = "0.1.0"
+defaultTargets = ["TensorRank335FC"]
+
+[[require]]
+name = "formal_conjectures"
+git = "https://github.com/google-deepmind/formal-conjectures"
+rev = "2424bb480c590237ffbb2cc831ae4cb8977e045a"
+
+[[lean_lib]]
+name = "TensorRank335FC"
