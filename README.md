@@ -5,7 +5,7 @@ This repository formalizes a solution to the open statement
 [Formal Conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Arxiv/0805.3777/TensorRank.lean).
 The rank of a tensor $`T\in\mathbb C^3\otimes\mathbb C^3\otimes\mathbb C^5`$ is the least number of
 decomposable tensors $`a\otimes b\otimes c`$ whose sum is $`T`$ (Mathlib's `Holor.cprank`), and the
-maximal rank $`\operatorname{mrank}(3,3,5)`$ is the largest rank attained by such a tensor. The
+maximal rank $`\mathrm{mrank}(3,3,5)`$ is the largest rank attained by such a tensor. The
 theorem is
 
 ```text
@@ -13,8 +13,8 @@ mrank(3, 3, 5) = 6:   every complex 3 × 3 × 5 tensor has rank at most 6,
                       and some complex 3 × 3 × 5 tensor has rank exactly 6.
 ```
 
-Previously only $`\operatorname{mrank}(3,3,5)\in\{6,7\}`$ was known. It was the one undetermined
-entry of the table of $`\operatorname{mrank}(3,3,p)`$ for $`p\le 9`$ (Bruzda–Friedland–Życzkowski,
+Previously only $`\mathrm{mrank}(3,3,5)\in\{6,7\}`$ was known. It was the one undetermined
+entry of the table of $`\mathrm{mrank}(3,3,p)`$ for $`p\le 9`$ (Bruzda–Friedland–Życzkowski,
 (4.20), based on Atkinson–Stephens).
 
 **Try it in Lean4Web:**
@@ -45,14 +45,14 @@ Conjectures states without a proof.
 
 **Notation.** Let $`M=M_3(\mathbb C)`$ with the bilinear pairing
 $`\langle X,B\rangle=\sum_{i,j}X_{ij}B_{ij}`$, and for a subspace $`S\subseteq M`$ let
-$`\operatorname{ann}S=\{B:\langle X,B\rangle=0\ \text{for all}\ X\in S\}`$. For $`a,b\in\mathbb C^3`$
-we have $`\langle ab^{\mathsf T},B\rangle=a^{\mathsf T}Bb`$. Write $`[b]_\times`$ for the matrix of
+$`\mathrm{ann}S=\{B:\langle X,B\rangle=0\ \text{for all}\ X\in S\}`$. For $`a,b\in\mathbb C^3`$
+we have $`\langle ab^{\top},B\rangle=a^{\top}Bb`$. Write $`[b]_\times`$ for the matrix of
 $`v\mapsto b\times v`$.
 
 ### 0. Tensors and spaces of matrices
 
 Let $`T_1,\dots,T_5\in M`$ be the slices of $`T`$ along the last index. Then
-$`\operatorname{rank}T\le r`$ if and only if $`\operatorname{span}(T_1,\dots,T_5)`$ lies in the span
+$`\mathrm{rank}T\le r`$ if and only if $`\mathrm{span}(T_1,\dots,T_5)`$ lies in the span
 of $`r`$ rank-one matrices. So it suffices to show:
 
 ```math
@@ -60,7 +60,7 @@ of $`r`$ rank-one matrices. So it suffices to show:
 ```
 
 and to exhibit one five-dimensional $`S`$ for which five rank-one matrices do not suffice. We may
-assume $`\dim S=5`$, and then $`V=\operatorname{ann}S`$ is four-dimensional, with basis
+assume $`\dim S=5`$, and then $`V=\mathrm{ann}S`$ is four-dimensional, with basis
 $`B_0,\dots,B_3`$.
 
 ### 1. The lower bound
@@ -68,8 +68,8 @@ $`B_0,\dots,B_3`$.
 Take the slices $`E_{12},E_{13},E_{23},E_{11}-E_{22},E_{22}-E_{33}`$. They span the space $`S_0`$
 of trace-zero upper-triangular matrices, which has dimension $`5`$. If $`S_0`$ lay in the span of
 five rank-one matrices, these would span exactly $`S_0`$, so they would all lie in $`S_0`$. A
-rank-one matrix $`ab^{\mathsf T}\in S_0`$ has zero diagonal, since
-$`(a_ib_i)^2=a_ib_i\operatorname{tr}(ab^{\mathsf T})-\sum_{j\ne i}(a_ib_j)(a_jb_i)=0`$. But then no
+rank-one matrix $`ab^{\top}\in S_0`$ has zero diagonal, since
+$`(a_ib_i)^2=a_ib_i\mathrm{tr}(ab^{\top})-\sum_{j\ne i}(a_ib_j)(a_jb_i)=0`$. But then no
 combination of them has $`(1,1)`$ entry $`1`$. Hence the rank is $`6`$, attained by the six
 upper-triangular matrix units.
 
@@ -78,27 +78,27 @@ upper-triangular matrix units.
 Let $`B_0,B_1,B_2\in M`$, put $`K(b)=[B_0b\mid B_1b\mid B_2b]`$ (columns), and consider the ternary
 cubic $`f(b)=\det K(b)`$.
 
-**Lemma R.** Suppose $`f`$ is squarefree. If $`A\in M`$ satisfies $`a^{\mathsf T}Ab=0`$ whenever
-$`a^{\mathsf T}B_kb=0`$ for $`k=0,1,2`$, then $`A\in\operatorname{span}(B_0,B_1,B_2)`$.
+**Lemma R.** Suppose $`f`$ is squarefree. If $`A\in M`$ satisfies $`a^{\top}Ab=0`$ whenever
+$`a^{\top}B_kb=0`$ for $`k=0,1,2`$, then $`A\in\mathrm{span}(B_0,B_1,B_2)`$.
 
 *Proof.*
-1. If $`f(b)=0`$, each row $`r`$ of $`\operatorname{adj}K(b)`$ satisfies $`rK(b)=0`$, so
+1. If $`f(b)=0`$, each row $`r`$ of $`\mathrm{adj}K(b)`$ satisfies $`rK(b)=0`$, so
    $`r\,B_kb=0`$ for all $`k`$. The hypothesis gives $`r\,Ab=0`$. Hence every entry of
-   $`P(b)=\operatorname{adj}K(b)\,A\,b`$ vanishes on the zero set of $`f`$.
+   $`P(b)=\mathrm{adj}K(b)\,A\,b`$ vanishes on the zero set of $`f`$.
 2. By the Nullstellensatz and squarefreeness, $`f`$ divides each entry of $`P`$. Both are cubic, so
    $`P=f\cdot c`$ for a constant vector $`c`$.
 3. Multiplying by $`K`$ gives $`f\cdot Ab=f\cdot K(b)c`$, i.e. $`Ab=\sum_kc_kB_kb`$ for all $`b`$.
    So $`A=\sum_kc_kB_k`$. $`\square`$
 
-By duality, the six-dimensional space $`\operatorname{ann}\operatorname{span}(B_0,B_1,B_2)`$ is then
+By duality, the six-dimensional space $`\mathrm{ann}\mathrm{span}(B_0,B_1,B_2)`$ is then
 spanned by its rank-one elements. Hence every $`S`$ annihilated by $`B_0,B_1,B_2`$ lies in the span
 of six rank-one matrices. In operator-theoretic language, this says that
-$`\operatorname{span}(B_k)`$ is reflexive.
+$`\mathrm{span}(B_k)`$ is reflexive.
 
 ### 3. The linear system of hyperplanes of $`V`$
 
 Let $`m_0,\dots,m_3`$ be the $`3\times3`$ minors of $`[B_0b\mid B_1b\mid B_2b\mid B_3b]`$. They are
-normalized so that the hyperplane $`\operatorname{span}(B_j+c_jB_3)_{j<3}`$ has column cubic
+normalized so that the hyperplane $`\mathrm{span}(B_j+c_jB_3)_{j<3}`$ has column cubic
 $`m_3+\sum_{j<3}c_jm_j`$. By Laplace expansion of a determinant with a repeated row,
 
 ```math
@@ -127,44 +127,44 @@ divisible by a common $`p^2`$.
 Exactly one of the following holds.
 - **(A)** Some hyperplane of $`V`$ has a squarefree column cubic. Then Lemma R covers $`S`$ by six.
 - **(B)** All minors vanish. Then for every $`b`$ the four vectors $`B_kb`$ span at most a plane, so
-  some $`a\ne0`$ has $`ab^{\mathsf T}\in S`$.
+  some $`a\ne0`$ has $`ab^{\top}\in S`$.
 - **(C)** $`m_k=p^2\mu_k`$ with $`\mu\ne0`$. Dividing the syzygy by $`p^2`$ gives a nonzero linear
   map $`\Phi:\mathbb C^3\to V`$ with $`\Phi(b)b=0`$. Every such map has the form
   $`\Phi(b)=N[b]_\times`$ with $`N\ne0`$. Since
-  $`\langle X,N[b]_\times\rangle=\langle N^{\mathsf T}X,[b]_\times\rangle`$, this means that
-  $`N^{\mathsf T}X`$ is symmetric for every $`X\in S`$.
+  $`\langle X,N[b]_\times\rangle=\langle N^{\top}X,[b]_\times\rangle`$, this means that
+  $`N^{\top}X`$ is symmetric for every $`X\in S`$.
 
-The same trichotomy applied to $`S^{\mathsf T}`$ gives the row version:
+The same trichotomy applied to $`S^{\top}`$ gives the row version:
 - (B) becomes: every $`a`$ is the row vector of a rank-one element.
 - (C) becomes: $`XN'`$ is symmetric for all $`X\in S`$.
 
 ### 6. The degenerate cases
 
-The cases are distinguished by $`\operatorname{rank}N`$ (similarly for $`N'`$).
+The cases are distinguished by $`\mathrm{rank}N`$ (similarly for $`N'`$).
 
-- **$`\operatorname{rank}N=3`$.** $`S\subseteq N^{-\mathsf T}\,\mathrm{Sym}`$. The symmetric matrices are
-  spanned by the six rank-one matrices $`e_ie_i^{\mathsf T}`$ and $`(e_i+e_j)(e_i+e_j)^{\mathsf T}`$.
-- **$`\operatorname{rank}N=2`$.** Normalize $`N`$ to $`\operatorname{diag}(1,1,0)`$. Then
+- **$`\mathrm{rank}N=3`$.** $`S\subseteq N^{-\top}\,\mathrm{Sym}`$. The symmetric matrices are
+  spanned by the six rank-one matrices $`e_ie_i^{\top}`$ and $`(e_i+e_j)(e_i+e_j)^{\top}`$.
+- **$`\mathrm{rank}N=2`$.** Normalize $`N`$ to $`\mathrm{diag}(1,1,0)`$. Then
   $`S\subseteq\{X_{12}=X_{21},\,X_{13}=X_{23}=0\}`$, which is spanned by $`E_{11},E_{22}`$,
-  $`(e_1+e_2)(e_1+e_2)^{\mathsf T}`$, $`E_{31},E_{32},E_{33}`$.
-- **$`\operatorname{rank}N=\operatorname{rank}N'=1`$.** With $`N=uv^{\mathsf T}`$ and
-  $`N'=u'v'^{\mathsf T}`$, the conditions say that $`u^{\mathsf T}X\parallel v^{\mathsf T}`$ and
+  $`(e_1+e_2)(e_1+e_2)^{\top}`$, $`E_{31},E_{32},E_{33}`$.
+- **$`\mathrm{rank}N=\mathrm{rank}N'=1`$.** With $`N=uv^{\top}`$ and
+  $`N'=u'v'^{\top}`$, the conditions say that $`u^{\top}X\parallel v^{\top}`$ and
   $`Xu'\parallel v'`$. After normalization these are four explicit coordinate subspaces, each spanned
   by at most six matrix units.
 - **Case (B) on one side.** It gives either four linearly independent rank-one matrices in $`S`$, or
-  a vector $`y`$ with $`y\,w^{\mathsf T}\in S`$ for all $`w`$. Combining the second alternative with
+  a vector $`y`$ with $`y\,w^{\top}\in S`$ for all $`w`$. Combining the second alternative with
   (B) or (C) on the other side again produces four independent rank-one matrices. In one sub-case
   this uses that a pencil of $`2\times2`$ matrices contains a singular member.
 
 ### 7. Four rank-one matrices suffice
 
 Suppose $`S`$ contains linearly independent rank-one matrices $`R_1,\dots,R_4`$, and write
-$`S=\operatorname{span}(R_l)\oplus\langle X\rangle`$.
+$`S=\mathrm{span}(R_l)\oplus\langle X\rangle`$.
 - If $`\det(X+\sum c_lR_l)`$ vanishes for some $`c`$, that element has rank at most $`2`$. Then
   $`4+2=6`$ rank-one matrices suffice.
 - Otherwise this polynomial in $`c`$ has no zero, so it is a nonzero constant. Then
-  $`\det(1+tX^{-1}\sigma)=1`$ for every $`\sigma\in\operatorname{span}(R_l)`$ and every $`t`$. So
-  $`X^{-1}\operatorname{span}(R_l)`$ is a four-dimensional space of nilpotent matrices.
+  $`\det(1+tX^{-1}\sigma)=1`$ for every $`\sigma\in\mathrm{span}(R_l)`$ and every $`t`$. So
+  $`X^{-1}\mathrm{span}(R_l)`$ is a four-dimensional space of nilpotent matrices.
 
 The second case is impossible by Gerstenhaber's bound: a linear space of nilpotent $`3\times3`$
 matrices has dimension at most $`3`$. The bound is proved in the file by normalizing a rank-two
@@ -234,7 +234,7 @@ Friedland's conjecture on generic ranks in the critical range
 The result is about complex tensors. The real maximal rank of $`3\times3\times5`$ tensors is not
 addressed.
 
-We are not aware of an earlier proof of $`\operatorname{mrank}(3,3,5)=6`$ in the literature, but a
+We are not aware of an earlier proof of $`\mathrm{mrank}(3,3,5)=6`$ in the literature, but a
 literature search cannot exclude unpublished work.
 
 ## Sources
